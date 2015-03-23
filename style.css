@@ -1,0 +1,53 @@
+body, html { margin:0px; padding:0px; }
+
+
+#container1 {
+  height:100vh;
+  position:relative;
+  background-color:rgba(255,0,0,0.1);
+}
+
+
+#container2 {
+  height:100vh;
+  position:relative;
+  background-color:blue;
+  opacity: 0.1;
+}
+
+#container2.arriving {
+  opacity: 0.5;
+}
+
+
+#container2.arrived{
+  opacity: 1;
+}
+
+#container3 {
+  height:100vh;
+  position:relative;
+  background-color:purple;
+  opacity: 0.1;
+}
+
+
+#container4 {
+  height:100vh;
+  position:relative;
+  background-color:purple;
+  opacity: 0.1;
+}
+
+#widget1 {
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform: translate(-50%,-50%);
+  color:black;
+
+}
+
+#widget3 {
+
+}

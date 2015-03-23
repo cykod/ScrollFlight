@@ -1,0 +1,76 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<link type="text/css" rel="stylesheet" href='style.css'/>
+        <script src='https://code.jquery.com/jquery-2.1.3.js'></script>
+        <script src='scroll_flight.js'></script>
+</head>
+<body>
+	
+<div id='container1' class='scroller'>
+	<div id='widget1' class='scroller'>First Widget</div>
+</div>
+
+<div id='container2' class='scroller'>
+	<div id='widget2' class='scroller'>I'm a widget</div>
+</div>
+
+<div id='container3' class='scroller'>
+	<div id='widget3' class='scroller'>I'm a widgeter</div>
+</div>
+
+<div id='container4' class='scroller'>
+	<div id='widget4' class='scroller'>I'm a widgeter</div>
+</div>
+
+
+
+<script>
+
+$("#container2").scrollFlight();
+
+$("#container2").on("arriving",function() {
+  $(this).removeClass("redeparted").addClass("arriving");
+});
+
+
+$("#container2").on("arrived",function() {
+  $(this).removeClass("arriving").addClass("arrived");
+});
+
+
+$("#container2").on("departing",function() {
+  $(this).removeClass("arrived").addClass("departing");
+});
+
+
+$("#container2").on("departed",function() {
+  $(this).removeClass("departing").addClass("departed");
+});
+
+
+$("#container2").on("rearriving",function() {
+  $(this).removeClass("departed").addClass("rearriving");
+});
+
+
+$("#container2").on("rearrived",function() {
+  $(this).removeClass("rearriving").addClass("rearrived");
+});
+
+$("#container2").on("redeparting",function() {
+  $(this).removeClass("rearrived").addClass("redeparting");
+});
+
+
+$("#container2").on("redeparted",function() {
+  $(this).removeClass("redeparting").addClass("redeparted");
+});
+
+</script>
+
+
+</body>
+</html>
