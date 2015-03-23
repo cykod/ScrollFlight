@@ -12,16 +12,16 @@ body, html { margin:0px; padding:0px; }
   height:100vh;
   position:relative;
   background-color:blue;
-  opacity: 0.1;
+  background-color:rgba(0,0,255,0.1);
 }
 
 #container2.arriving {
-  opacity: 0.5;
+  background-color:rgba(0,0,255,0.5);
 }
 
 
 #container2.arrived{
-  opacity: 1;
+  background-color:rgba(0,0,255,1);
 }
 
 #container3 {
@@ -39,13 +39,22 @@ body, html { margin:0px; padding:0px; }
   opacity: 0.1;
 }
 
-#widget1 {
+#widget1, #widget2 {
+  color:white;
   position:absolute;
   top:50%;
   left:50%;
   transform: translate(-50%,-50%);
   color:black;
+}
 
+#widget2 {
+  transform: translate(-80vw,0);
+  transition: transform 2s ease;
+}
+
+#widget2.arrived {
+  transform: translate(-50%,0);
 }
 
 #widget3 {
