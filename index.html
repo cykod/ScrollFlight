@@ -13,8 +13,8 @@
 	<div id='widget1' class='scroller'>First Widget</div>
 </div>
 
-<div id='container2' class='scroller' data-arrived="-200">
-  <div id='widget2' class='scroller' data-arrived="50%">I'm a widget</div>
+<div id='container2' class='scroller'>
+  <div id='widget2' class='scroller' data-affix-top="0" data-arrived="40%">I'm a widget</div>
 </div>
 
 <div id='container3' class='scroller'>
@@ -29,48 +29,26 @@
 
 <script>
 
-$("#container2").scrollFlight();
+$(".scroller").scrollFlight();
+
+$("#widget1").on("arrived",function() {
+    $(this).addClass("arrived");
+});
+
+$("#widget2").on("update",function(e,pos) {
+    console.log(pos);
+})
 
 $("#widget2").on("arrived",function() {
     $(this).addClass("arrived");
 });
 
-$("#container2").on("arriving",function() {
-  $(this).removeClass("redeparted").addClass("arriving");
+$("#widget2").on("departing",function() {
+    $(this).affix();
 });
 
-
-$("#container2").on("arrived",function() {
-  $(this).removeClass("arriving").addClass("arrived");
-});
-
-
-$("#container2").on("departing",function() {
-  $(this).removeClass("arrived").addClass("departing");
-});
-
-
-$("#container2").on("departed",function() {
-  $(this).removeClass("departing").addClass("departed");
-});
-
-
-$("#container2").on("rearriving",function() {
-  $(this).removeClass("departed").addClass("rearriving");
-});
-
-
-$("#container2").on("rearrived",function() {
-  $(this).removeClass("rearriving").addClass("rearrived");
-});
-
-$("#container2").on("redeparting",function() {
-  $(this).removeClass("rearrived").addClass("redeparting");
-});
-
-
-$("#container2").on("redeparted",function() {
-  $(this).removeClass("redeparting").addClass("redeparted");
+$("#container3").on("departing",function() {
+    $("#widget2").unaffix();
 });
 
 </script>

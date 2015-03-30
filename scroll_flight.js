@@ -5,8 +5,7 @@
   var check_binded = false;
   var check_lock = false;
   var defaults = {
-    interval: 140,
-    force_process: false
+    interval: 50
   }
   var $window = $(window);
 
@@ -25,7 +24,7 @@
 
   function triggerState($element,state) {
     $element.trigger(state);
-    console.log(state);
+    console.log($element[0].id + " " + state);
     $element.data("sf-state",state);
   }
 
@@ -51,7 +50,8 @@
     var windowHeight = $window.height();
 
 
-    if(scrollTop > lastScroll) { 
+
+    if(scrollTop >= lastScroll) { 
       switch(lastState) {
         case "off":
         if(top + offsetFor($element,"arriving") < scrollTop + windowHeight) { 
@@ -99,32 +99,50 @@
       }
     }
 
+    if($element.data('sf-state') != 'off' &&
+       $element.data('sf-state') != 'finished') {
+         var val = 1 - ((top + offsetFor($element,"arriving")) - scrollTop) / windowHeight;
+         if(val >= 0 && val <= 1) {
+           $element.trigger('update', val);
+         }
+    }
+
+
     $element.data("sf-last",scrollTop);
   }
 
-  // "appeared" custom filter
-  $.expr[':']['appeared'] = function(element) {
-    var $element = $(element);
-    if (!$element.is(':visible')) {
-      return false;
-    }
+  $.fn.affix = function(options) { 
+    return this.each(function() {
+      var $elem  = $(this),
+          w = $elem.outerWidth(),
+          h = $elem.outerHeight(),
+          $wrap = $("<div class='sf-affixer'>");
 
-    var window_left = $window.scrollLeft();
-    var window_top = $window.scrollTop();
-    var offset = $element.offset();
-    var left = offset.left;
-    var top = offset.top;
+      if($elem.css('position') == 'absolute') {
+        var $pos = $elem.position();
+        $wrap.css({ position: "absolute", left: $pos.left, top: $pos.top });
+      }
 
-    if (top + $element.height() >= window_top &&
-        top - ($element.data('appear-top-offset') || 0) <= window_top + $window.height() &&
-        left + $element.width() >= window_left &&
-        left - ($element.data('appear-left-offset') || 0) <= window_left + $window.width()) {
-      return true;
-    } else {
-      return false;
-    }
+      $wrap.css({ width: w, height: h, backgroundColor: "orange" });
+
+      $elem.wrap($wrap);
+
+      $elem.css({ position: "fixed", top: $elem.data("affix-top") || 0, left: $elem.data("affix-left") || undefined });
+    });
   }
 
+  $.fn.unaffix = function(options) {
+    return this.each(function() {
+      var $elem  = $(this);
+
+      if($elem.parent().hasClass("sf-affixer")) { 
+        $elem.css({ position: "", top: "", left: "" });
+        $elem.unwrap();
+      }
+    });
+  }
+
+  
   $.fn.extend({
     // watching for element's appearance in browser viewport
     scrollFlight: function(options) {
@@ -144,9 +162,8 @@
         check_binded = true;
       }
 
-      if (opts.force_process) {
-        setTimeout(process, opts.interval);
-      }
+      setTimeout(process, opts.interval);
+
       selectors.push(selector);
       return $(selector);
     }

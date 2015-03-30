@@ -7,6 +7,16 @@ body, html { margin:0px; padding:0px; }
   background-color:rgba(255,0,0,0.1);
 }
 
+#widget1 {
+  font-size:30px;
+  opacity: 0;
+  transition: opacity 2s ease;
+}
+
+#widget1.arrived {
+  opacity: 1;
+}
+
 
 #container2 {
   height:100vh;
