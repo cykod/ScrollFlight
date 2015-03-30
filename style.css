@@ -10,7 +10,7 @@ body, html { margin:0px; padding:0px; }
 #widget1 {
   font-size:30px;
   opacity: 0;
-  transition: opacity 2s ease;
+  transition: opacity 5s ease;
 }
 
 #widget1.arrived {
@@ -59,12 +59,13 @@ body, html { margin:0px; padding:0px; }
 }
 
 #widget2 {
-  transform: translate(-80vw,0);
-  transition: transform 2s ease;
+  transform: translate(-50%,0);
+  left:-200%;
+  transition: left 2s ease, transform 0.25s linear;
 }
 
 #widget2.arrived {
-  transform: translate(-50%,0);
+  left:50%;
 }
 
 #widget3 {

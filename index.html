@@ -36,7 +36,11 @@ $("#widget1").on("arrived",function() {
 });
 
 $("#widget2").on("update",function(e,pos) {
-    console.log(pos);
+    if($(this).flightState() == "arrived") {
+      var scale = pos * 5;
+      console.log(scale);
+      $(this).css({ transform: "scale(" + scale + ")" });
+    }
 })
 
 $("#widget2").on("arrived",function() {
@@ -44,6 +48,7 @@ $("#widget2").on("arrived",function() {
 });
 
 $("#widget2").on("departing",function() {
+    $(this).css({ transform: "scale(1)" });
     $(this).affix();
 });
 

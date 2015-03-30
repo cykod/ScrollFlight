@@ -24,7 +24,6 @@
 
   function triggerState($element,state) {
     $element.trigger(state);
-    console.log($element[0].id + " " + state);
     $element.data("sf-state",state);
   }
 
@@ -118,17 +117,23 @@
           h = $elem.outerHeight(),
           $wrap = $("<div class='sf-affixer'>");
 
+      $elem.unaffix();
+
       if($elem.css('position') == 'absolute') {
         var $pos = $elem.position();
         $wrap.css({ position: "absolute", left: $pos.left, top: $pos.top });
       }
 
-      $wrap.css({ width: w, height: h, backgroundColor: "orange" });
+      $wrap.css({ width: w, height: h });
 
       $elem.wrap($wrap);
 
       $elem.css({ position: "fixed", top: $elem.data("affix-top") || 0, left: $elem.data("affix-left") || undefined });
     });
+  }
+
+  $.fn.flightState = function() {
+    return $(this).first().data("sf-state");
   }
 
   $.fn.unaffix = function(options) {
@@ -139,6 +144,28 @@
         $elem.css({ position: "", top: "", left: "" });
         $elem.unwrap();
       }
+    });
+  }
+
+  $.fn.affixRelease = function(options) {
+    return this.each(function() {
+      var $elem  = $(this);
+
+      if($elem.parent().hasClass("sf-affixer")) { 
+        var $wrap = $elem.parent();
+
+        $elem.css({ position: "absolute", top: "", left: "" });
+        $elem.unwrap();
+      }
+    });
+  }
+
+  $.fn.affixReset = function() {
+    return this.each(function() {
+      var $elem  = $(this);
+
+      $elem.unaffix();
+      $elem.css({ position: "", top: "", left: "" });
     });
   }
 
