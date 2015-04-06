@@ -1,11 +1,10 @@
-
 (function($) {
   var selectors = [];
 
   var check_binded = false;
   var check_lock = false;
   var defaults = {
-    interval: 50
+    interval: 16
   }
   var $window = $(window);
 
@@ -67,6 +66,7 @@
         case "departing":
         if(top  + height + offsetFor($element,"departed") < scrollTop) {
           triggerState($element,"departed");
+          break;
         } 
         case "departed":
         if(top + height  + offsetFor($element,"departed") < scrollTop) {
@@ -90,6 +90,7 @@
         case "redeparting":
         if(top  + offsetFor($element,"redeparted") >= scrollTop + windowHeight) {
           triggerState($element,"redeparted");
+          break;
         }
         case "redeparted":
         if(top  + offsetFor($element,"redeparted") >= scrollTop + windowHeight) {
@@ -101,11 +102,11 @@
     if($element.data('sf-state') != 'off' &&
        $element.data('sf-state') != 'finished') {
          var val = 1 - ((top + offsetFor($element,"arriving")) - scrollTop) / windowHeight;
-         if(val >= 0 && val <= 1) {
-           $element.trigger('update', val);
-         }
+         if(val < 0) { val = 0; }
+         if(val > 1) { val = 1; }
+         $element.trigger('update', val);
+          
     }
-
 
     $element.data("sf-last",scrollTop);
   }
@@ -182,14 +183,14 @@
           }
           check_lock = true;
 
-          setTimeout(process, opts.interval);
+          requestAnimationFrame(process);
         };
 
         $(window).scroll(on_check).resize(on_check);
         check_binded = true;
       }
 
-      setTimeout(process, opts.interval);
+      requestAnimationFrame(process);
 
       selectors.push(selector);
       return $(selector);
