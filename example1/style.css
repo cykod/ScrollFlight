@@ -1,0 +1,37 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body { font-family: Times; font-size:16px; }
+
+.page {
+  position:relative;
+  overflow:hidden;
+  background-color:white;
+}
+
+.full-page {
+ height: 100vh;
+}
+
+#page1 { background-color:red; }
+
+#page2 { background-color:blue; }
+
+
+.title {
+  position:absolute;
+  left:50%;
+  top:50%;
+  transform: translate(-50%, -50%);
+  color:white;
+  font-size:30px;
+  opacity: 0;
+  transition: opacity 2s ease;
+}
+
+
+.title.arrived {
+  opacity: 1;
+}

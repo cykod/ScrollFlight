@@ -1,0 +1,30 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Simple Fade In Example</title>
+  <link rel='stylesheet' href='style.css' />
+  <script src='https://code.jquery.com/jquery-2.1.3.js'></script>
+  <script src='http://cykod.github.io/ScrollFlight/scroll_flight.js'></script>
+</head>
+<body>
+<div id='page1' class='page full-page'>
+  <div class='title scroller'>Here's the first title</div>
+</div>
+
+<div id='page2' class='page full-page'>
+  <div class='title scroller'>Here's the second title</div>
+</div>
+
+
+<script>
+
+$(".scroller").scrollFlight();
+
+$(".title").on("arrived",function() {
+  $(this).addClass("arrived");
+});
+
+</script>
+</body>
+</html>
