@@ -1,0 +1,65 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body { font-family: Times; font-size:16px; }
+
+.page {
+  position:relative;
+  overflow:hidden;
+  background-color:white;
+}
+
+.full-page {
+ height: 100vh;
+}
+
+#page1 { background-color:red; }
+#page2 { background-color:blue; }
+#page3 { background-color:black; }
+#page4 { background-color:darkgreen; }
+
+
+.title {
+  position:absolute;
+  left:50%;
+  top:50%;
+  transform: translate(-50%, -50%);
+  color:white;
+  font-size:30px;
+  opacity: 0;
+  transition: opacity 2s ease;
+}
+
+
+.title.arrived {
+  opacity: 1;
+}
+
+
+.menu {
+ position:fixed;
+ top:20px;
+ right:20px;
+ z-index:20;
+}
+
+.menu li {
+  list-style:none;
+  display:block;
+}
+
+.menu a {
+  display:block;
+  width:20px;
+  height:20px;
+  margin:20px;
+  border-radius: 50%;
+  background-color:white;
+  transition: background-color 500ms ease;
+}
+
+.menu a.selected {
+  background-color:black;
+}

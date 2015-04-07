@@ -66,14 +66,14 @@
         case "departing":
         if(top  + height + offsetFor($element,"departed") < scrollTop) {
           triggerState($element,"departed");
-          break;
         } 
         case "departed":
         if(top + height  + offsetFor($element,"departed") < scrollTop) {
           $element.data("sf-state","finished");
         }
       }
-    } else if(scrollTop < lastScroll) {
+    } 
+    if(scrollTop <= lastScroll) {
       switch(lastState) {
         case "finished":
         if(top + height  + offsetFor($element,"rearriving")  >= scrollTop) {
@@ -90,7 +90,6 @@
         case "redeparting":
         if(top  + offsetFor($element,"redeparted") >= scrollTop + windowHeight) {
           triggerState($element,"redeparted");
-          break;
         }
         case "redeparted":
         if(top  + offsetFor($element,"redeparted") >= scrollTop + windowHeight) {
