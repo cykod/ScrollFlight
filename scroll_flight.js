@@ -61,6 +61,7 @@
           triggerState($element,"arrived");
         } else { break; }
         case "arrived":
+        case "rearrived":
         if(top + offsetFor($element,"departing") < scrollTop) {
           triggerState($element,"departing");
         } else { break; }
@@ -86,6 +87,7 @@
           triggerState($element,"rearrived");
         } else { break; }
         case "rearrived":
+        case "arrived":
         if(top + height  + offsetFor($element,"redeparting") >= scrollTop + windowHeight) {
           triggerState($element,"redeparting");
         } else { break; }

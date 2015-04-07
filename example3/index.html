@@ -48,6 +48,13 @@ $(".page").on("arriving rearriving",function() {
   $(".menu").find("a[href='" + href + "']").addClass("selected");
 });
 
+$(".menu a").on("click",function(e) {
+  e.preventDefault();
+  var top = $($(this).attr('href')).position().top;
+  console.log(top);
+  $('html, body').animate({ scrollTop: top });
+});
+
 </script>
 </body>
 </html>
