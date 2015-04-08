@@ -11,14 +11,17 @@
   var $prior_appeared;
 
   function process() {
-    check_lock = false;
-    var scrollTop = $window.scrollTop();
-    for (var index = 0, selectorsLength = selectors.length; index < selectorsLength; index++) {
-      $(selectors[index]).each(function() {
-        updateElement(this,scrollTop);
+    if(check_lock) { 
+      check_lock = false;
+      var scrollTop = $window.scrollTop();
+      for (var index = 0, selectorsLength = selectors.length; index < selectorsLength; index++) {
+        $(selectors[index]).each(function() {
+          updateElement(this,scrollTop);
 
-      });
+        });
+      }
     }
+    requestAnimationFrame(process);
   }
 
   function triggerState($element,state) {
@@ -103,12 +106,19 @@
       }
     }
 
-    if($element.data('sf-state') != 'off' &&
-       $element.data('sf-state') != 'finished') {
+    if(lastState != 'off' &&
+       lastState != 'finished') {
          var val = 1 - ((top + offsetFor($element,"arriving")) - scrollTop) / windowHeight;
+         var reveal =  (offsetFor($element,"reveal") + scrollTop + windowHeight - top) / height;
          if(val < 0) { val = 0; }
          if(val > 1) { val = 1; }
+
+         if(reveal < 0) { reveal = 0; }
+         if(reveal > 1) { reveal = 1; }
+
          $element.trigger('update', val);
+         $element.trigger('reveal', reveal);
+
           
     }
 
@@ -182,19 +192,15 @@
       var selector = this.selector || this;
       if (!check_binded) {
         var on_check = function() {
-          if (check_lock) {
-            return;
-          }
           check_lock = true;
-
-          requestAnimationFrame(process);
         };
 
         $(window).scroll(on_check).resize(on_check);
         check_binded = true;
+        process();
       }
 
-      requestAnimationFrame(process);
+      check_lock = true;
 
       selectors.push(selector);
       return $(selector);

@@ -1,0 +1,179 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body { font-family: Times; }
+
+
+.page {
+  position:relative;
+  overflow:hidden;
+  background-color:white;
+  transition:background-color 2s linear;
+}
+
+
+.page.springish {
+  background-color: rgba(174,195,94,1);
+  color: rgb(88,113,37);
+}
+
+.parallax {
+}
+
+
+.iframe-wrapper {
+  width:100%;
+  overflow:hidden;
+  position:absolute;;
+  height: 100vh;
+  top:0;
+  left:0;
+}
+
+
+.iframe-wrapper iframe {
+  position: absolute;
+  top:-10%;
+  left:-20%;
+  width:140%;
+  height:120%;
+}
+
+.iframe-cover {
+  position:relative;;
+  left:0px;
+  top:0px;
+  width:100%;
+  height:100vh;
+  background-color:rgba(255,255,255,1);
+  transition: background-color 4s ease 1s;
+  z-index:2;
+}
+
+.iframe-cover.appeared {
+  background-color:rgba(255,255,255,0.0);
+}
+
+.parallax-image {
+  background-size:cover;
+  background-position:50% 50%;
+  background-repeat: no-repeat;
+  background-attachment:fixed;
+  width:100%;
+  height:100vh
+}
+
+.full-image {
+  background-size:cover;
+  background-position:50% 50%;
+  background-repeat: no-repeat;
+  width:100%;
+  height:100vh
+}
+
+
+ /* centre the content in the parallax layers */
+.title {
+  font-family: Georgia;
+  position: absolute;
+  left: 50%;
+  top: 30%;
+  transform: translate(-50%, 0);
+  font-size:65px;
+  color:black;
+  text-align:center;
+  opacity: 0;
+  color:white;
+  transition: opacity 3s ease 1s;
+  text-shadow: 2px 2px rgba(0,0,0,0.3);
+}
+
+.t1 {
+  line-height:0.85em; font-size:1em;
+  text-transform:lowercase;
+}
+
+.t2, .t3 {
+  line-height:0.90em; font-size:1.5em;
+  text-transform:uppercase;
+
+}
+
+.title.appeared {
+  opacity: 1;
+}
+
+
+.text-columns {
+  padding:30px;
+
+}
+
+.text {
+  position:relative;
+  margin:0;
+  width:480px;
+  margin:0 auto;
+  font-size:25px;
+  padding:70px;
+  text-align: justify;
+  line-height:1.5em;
+}
+
+.text-padded {
+  padding-top:200px;
+  padding-bottom:50px;
+
+}
+
+.grey {
+  background-color: #CCC;
+
+}
+
+.fixed {
+  position:fixed;
+}
+
+.block-text {
+  position:absolute;
+  left:10%;
+  top:10%;
+  background-color:white;
+  opacity:0;
+  transition: opacity 2s ease;
+}
+
+.block-text.appeared {
+  opacity:1;
+}
+
+.quote {
+  padding:50px 20px;
+  position:relative;
+  font-style:italic;
+  transition: opacity 2s ease, transform 2s ease;
+  transform: translate(-50px,0);
+  opacity:0;
+}
+
+
+.quote.arrived {
+  transform: translate(0px,0);
+  opacity:1;
+}
+
+
+.pear {
+  position:absolute;
+  width:200px;
+  top:0%;
+  left:0%;
+}
+
+.pear1 {  left:5%; top:2%; }
+.pear2 {  left:80%; top:10%; }
+.pear3 {  left:10%; top:6%;; }
+.pear4 {  left:75%; top:6%;; }

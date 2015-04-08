@@ -1,0 +1,45 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Simple Fade In Example</title>
+  <link rel='stylesheet' href='style.css' />
+  <script src='https://code.jquery.com/jquery-2.1.3.js'></script>
+  <script src='../scroll_flight.js'></script>
+</head>
+<body>
+<div id='fixed-container'>
+  <div class='sprite'></div>
+</div>
+
+<div id='page0' class='page full-page'>
+</div>
+
+<div id='page1' class='page double-page scroller'>
+</div>
+
+<div id='page2' class='page double-page scroller' data-arriving="50%">
+</div>
+
+
+<script>
+
+$(".scroller").scrollFlight();
+
+$("#page1").on("reveal",function(e,reveal) {
+    if($(this).flightState() != "finished") { 
+      $(".sprite").css({ transform: "translateX(" + (reveal * 100) + "vw)" });
+    }
+
+});
+
+$("#page2").on("update",function(e,reveal) {
+    if($(this).flightState() != "off") {
+      var back = 1 - reveal;
+      $(".sprite").css({ transform: "translateX(" + (back * 100) + "vw)" });
+    }
+});
+
+</script>
+</body>
+</html>

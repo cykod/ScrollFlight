@@ -1,0 +1,49 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body { font-family: Times; font-size:16px; }
+
+.page {
+  position:relative;
+  overflow:hidden;
+  background-color:white;
+}
+
+.full-page {
+ height: 100vh;
+}
+
+
+.double-page {
+ height: 200vh;
+}
+
+#page0 { background-color:white; }
+
+#page1 { background-color:black; }
+
+#page2 { background-color:blue; }
+
+
+.title.arrived {
+  opacity: 1;
+}
+
+#fixed-container {
+  position:fixed;
+  z-index:2;
+  height:100vh;
+  width:100%;
+}
+
+.sprite {
+  position:absolute;
+  width:40px;
+  height:30px;
+  background-size:cover;
+  top:40%;
+  left:0%;
+  background-image:url(sprite.png);
+}
