@@ -31,6 +31,11 @@ body { font-family: Times; font-size:16px; }
   opacity: 1;
 }
 
+.text { 
+  padding: 0 30%;
+  font-size:16px;
+}
+
 #fixed-container {
   position:fixed;
   z-index:2;
