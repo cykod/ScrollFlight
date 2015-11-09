@@ -5,7 +5,7 @@
   <title>Stop and Scroll</title>
   <link rel='stylesheet' href='style.css' />
   <script src='https://code.jquery.com/jquery-2.1.3.js'></script>
-  <script src='http://cykod.github.io/ScrollFlight/scroll_flight.js'></script>
+  <script src='../scroll_flight.js'></script>
 </head>
 <body>
 <div id='page1' class='page full-page'>
@@ -155,6 +155,8 @@ $(".full-overlay").on("scroll",function(e) {
 function lockScroll(){
     $html = $('html'); 
     $body = $('body'); 
+
+    if($html.data("locked") == "locked") { return; }
     var initWidth = $body.outerWidth();
     var initHeight = $body.outerHeight();
 
@@ -163,6 +165,7 @@ function lockScroll(){
         self.pageYOffset || document.documentElement.scrollTop  || document.body.scrollTop
     ];
     $html.data('scroll-position', scrollPosition);
+    $html.data('locked',"locked");
     $html.data('previous-overflow', $html.css('overflow'));
     $html.css('overflow', 'hidden');
     window.scrollTo(scrollPosition[0], scrollPosition[1]);   
@@ -173,8 +176,14 @@ function lockScroll(){
 } 
 
 function unlockScroll(){
+    
     $html = $('html');
     $body = $('body');
+
+    if($html.data('locked') != "locked") { return; }
+
+    $html.data('locked',false);
+
     $html.css('overflow', $html.data('previous-overflow'));
     var scrollPosition = $html.data('scroll-position');
     window.scrollTo(scrollPosition[0], scrollPosition[1]);    

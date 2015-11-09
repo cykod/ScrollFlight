@@ -25,7 +25,7 @@
   }
 
   function triggerState($element,state) {
-    $element.trigger(state);
+    $element.triggerHandler(state);
     $element.data("sf-state",state);
   }
 
@@ -116,8 +116,8 @@
          if(reveal < 0) { reveal = 0; }
          if(reveal > 1) { reveal = 1; }
 
-         $element.trigger('update', val);
-         $element.trigger('reveal', reveal);
+         $element.triggerHandler('update', val);
+         $element.triggerHandler('reveal', reveal);
 
           
     }
