@@ -125,6 +125,7 @@
     $element.data("sf-last",scrollTop);
   }
 
+  /*
   $.fn.affix = function(options) { 
     return this.each(function() {
       var $elem  = $(this),
@@ -145,7 +146,34 @@
 
       $elem.css({ position: "fixed", top: $elem.data("affix-top") || 0, left: $elem.data("affix-left") || undefined });
     });
-  }
+  }*/
+
+  $.fn.affix = function(options) {
+    return this.each(function() {
+      var $elem  = $(this),
+          w = $elem.outerWidth(),
+          h = $elem.outerHeight();
+
+
+      $elem.unaffix();
+
+      var location = $elem.offset();
+
+      var scrollLeft = $window.scrollLeft();
+      var scrollTop = $window.scrollTop();
+
+      location.left -= scrollLeft;
+      location.top -= scrollTop;
+
+      $elem.data("sf-affix-location",$elem.position());
+      $elem.data("sf-affix-affixed",location);
+      $elem.data("sf-affix-position",this.style.position);
+
+      $elem.css({ position: "fixed", top: location.top, left: location.left });
+
+    });
+  };
+
 
   $.fn.flightState = function() {
     return $(this).first().data("sf-state");
@@ -155,36 +183,43 @@
     return this.each(function() {
       var $elem  = $(this);
 
-      if($elem.parent().hasClass("sf-affixer")) { 
-        $elem.css({ position: "", top: "", left: "" });
-        $elem.unwrap();
+      var origLocation = $elem.data("sf-affix-location");
+      var origPosition = $elem.data("sf-affix-position");
+
+      if(origLocation) {
+        $elem.css({ position: origPosition, top: origLocation.top, left: origLocation.left });
+        $elem.data("sf-affix-location",null);
+        $elem.data("sf-affix-position",null);
       }
     });
   }
 
-  $.fn.affixRelease = function(options) {
+  $.fn.release = function(options) {
     return this.each(function() {
       var $elem  = $(this);
 
-      if($elem.parent().hasClass("sf-affixer")) { 
-        var $wrap = $elem.parent();
 
-        $elem.css({ position: "absolute", top: "", left: "" });
-        $elem.unwrap();
+      var scrollLeft = $window.scrollLeft();
+      var scrollTop = $window.scrollTop();
+
+      var affixedLocation = $elem.data("sf-affix-affixed");
+
+      if(affixedLocation) { 
+        $elem.css({ position: "absolute", });
+        var $parent = $elem.offsetParent();
+        var parentLocation = $parent.offset();
+        var locTop = scrollTop - parentLocation.top + affixedLocation.top;
+        var locLeft = scrollLeft - parentLocation.left + affixedLocation.left;
+
+        $elem.css({ position: "absolute",
+                    left: locLeft,
+                    top: locTop });
+        $elem.data("sf-affix-affixed",null);
       }
     });
   }
-
-  $.fn.affixReset = function() {
-    return this.each(function() {
-      var $elem  = $(this);
-
-      $elem.unaffix();
-      $elem.css({ position: "", top: "", left: "" });
-    });
-  }
-
   
+
   $.fn.extend({
     // watching for element's appearance in browser viewport
     scrollFlight: function(options) {
